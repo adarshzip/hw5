@@ -19,7 +19,7 @@ void helper(
     std::set<std::string>& words,
     const std::string& in, 
     const std::set<std::string>& dict,
-    int blanks
+    unsigned int blanks
 );
 
 // Definition of primary wordle function
@@ -43,7 +43,7 @@ void helper(
     std::set<std::string>& words,
     const std::string& in, 
     const std::set<std::string>& dict,
-    int blanks)
+    unsigned int blanks)
 {
     if (floating.size() > blanks){
         return; // "aggressively prune for time"
