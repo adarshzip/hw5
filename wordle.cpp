@@ -55,6 +55,15 @@ void helper(
     if(in[current.size()] != '-'){
         helper(current + in[current.size()], floating, words, in, dict);
     }
+    else if (current.size() + floating.size() == in.size()){
+        for (char c : floating){ // even more aggressive pruning for instructor3 test
+            std::string floating2 = floating; 
+
+            floating2.erase(floating2.find(c), 1);
+
+            helper(current + c, floating2, words, in, dict);
+        }
+    }
     else {
         for (char c = 'a'; c <= 'z'; c++){
             std::string floating2 = floating; 
