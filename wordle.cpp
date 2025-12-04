@@ -18,7 +18,8 @@ void helper(
     std::string floating,
     std::set<std::string>& words,
     const std::string& in, 
-    const std::set<std::string>& dict
+    const std::set<std::string>& dict,
+    int blanks
 );
 
 // Definition of primary wordle function
@@ -29,7 +30,9 @@ std::set<std::string> wordle(
 {
     std::string current = ""; 
     std::set<std::string> words; 
-    helper(current, floating, words, in, dict); 
+    int blanks = count(in.begin(), in.end(), '-');
+
+    helper(current, floating, words, in, dict, blanks); 
     return words; 
 }
 
@@ -39,9 +42,10 @@ void helper(
     std::string floating,
     std::set<std::string>& words,
     const std::string& in, 
-    const std::set<std::string>& dict)
+    const std::set<std::string>& dict,
+    int blanks)
 {
-    if (current.size() + floating.size() > in.size()){
+    if (floating.size() > blanks){
         return; // "aggressively prune for time"
     }
 
@@ -53,15 +57,15 @@ void helper(
     }
 
     if(in[current.size()] != '-'){
-        helper(current + in[current.size()], floating, words, in, dict);
+        helper(current + in[current.size()], floating, words, in, dict, blanks);
     }
-    else if (current.size() + floating.size() == in.size()){
+    else if (floating.size() == blanks){
         for (char c : floating){ // even more aggressive pruning for instructor3 test
             std::string floating2 = floating; 
 
             floating2.erase(floating2.find(c), 1);
 
-            helper(current + c, floating2, words, in, dict);
+            helper(current + c, floating2, words, in, dict, blanks - 1);
         }
     }
     else {
@@ -72,7 +76,7 @@ void helper(
                 floating2.erase(floating2.find(c), 1);
             }
 
-            helper(current + c, floating2, words, in, dict);
+            helper(current + c, floating2, words, in, dict, blanks - 1);
         }
     }
 }
