@@ -46,7 +46,7 @@ bool schedule(
     sched.clear();
     // Add your code below
     sched.resize(avail.size());    
-    for(int i = 0; i < avail.size(); i++){
+    for(unsigned int i = 0; i < avail.size(); i++){
         sched[i].resize(dailyNeed);
     }
     std::vector<size_t> shiftCounts(avail[0].size());
@@ -71,14 +71,14 @@ bool solve(
         return solve(avail, dailyNeed, maxShifts, sched, shiftCounts, day + 1, 0);
     }
     else {
-        int start; 
+        unsigned int start; 
         if(slot == 0){
             start = 0;
         }
         else {
             start = sched[day][slot - 1] + 1;
         }
-        for (int i = start; i < avail[day].size(); i++){
+        for (unsigned int i = start; i < avail[day].size(); i++){
             if (avail[day][i] == 1 && shiftCounts[i] < maxShifts){
                 sched[day][slot] = i; 
                 shiftCounts[i] += 1; 
