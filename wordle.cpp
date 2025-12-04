@@ -30,7 +30,7 @@ std::set<std::string> wordle(
 {
     std::string current = ""; 
     std::set<std::string> words; 
-    int blanks = count(in.begin(), in.end(), '-');
+    unsigned int blanks = count(in.begin(), in.end(), '-'); // even even more aggressive pruning for instructor3
 
     helper(current, floating, words, in, dict, blanks); 
     return words; 
