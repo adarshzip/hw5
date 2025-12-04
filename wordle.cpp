@@ -41,10 +41,11 @@ void helper(
     const std::string& in, 
     const std::set<std::string>& dict)
 {
+    if (current.size() + floating.size() > in.size()){
+        return; // "aggressively prune for time"
+    }
+
     if (current.size() == in.size()){ // base case
-        if (floating.size() > 0){
-            return; 
-        }
         if (dict.find(current) != dict.end()){
             words.insert(current); 
         }
